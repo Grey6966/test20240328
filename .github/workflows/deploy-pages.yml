@@ -13,6 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Set up Git
+        run: |
+          git config --global user.email "action@github"
+          git config --global user.name "github-workflow"
+
       - name: Setup Node.js and Yarn
         uses: actions/setup-node@v3
         with:
@@ -38,5 +43,3 @@ jobs:
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./dist
-
-     
