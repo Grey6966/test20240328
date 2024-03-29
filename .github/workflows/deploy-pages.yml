@@ -4,40 +4,24 @@ on:
   push:
     branches:
       - master
-
+env:
+  REACT_APP_DEPLOY_ENV: pages
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node-version: [18.19.1]
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Git
-        run: |
-          git config --global user.email "action@github"
-          git config --global user.name "github-workflow"
-
-      - name: Setup Node.js and Yarn
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: '18.19.1'
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Build
+          node-version: ${{ matrix.node-version }}
+      - name: Install Packages
+        run: yarn
+      - name: Build page
         run: yarn build
-
-      - name: Clear gh-pages branch
-        run: |
-          git checkout --orphan temp-branch
-          git add -A
-          git commit -am "Clear gh-pages branch"
-          git branch -D gh-pages
-          git branch -m gh-pages
-          git push -f origin gh-pages
-
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
