@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="This is a test project again 123"/>
+    <HelloWorld msg="Some Ting to change"/>
   </div>
 </template>
 
