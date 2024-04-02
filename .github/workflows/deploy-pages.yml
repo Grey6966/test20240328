@@ -25,14 +25,14 @@ jobs:
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          deploy_key: ${{ secrets.SSH_PRIVATE_KEY }}
           publish_dir: ./dist
 
       #  同步到GITEE
       - name: Sync to Gitee
         uses: wearerequired/git-mirror-action@v1.2.0
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.GITEE_KEY }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         with:
           source-repo: git@github.com:Grey6966/test20240328.git
           destination-repo: git@gitee.com:Jeeun/test20240328.git
